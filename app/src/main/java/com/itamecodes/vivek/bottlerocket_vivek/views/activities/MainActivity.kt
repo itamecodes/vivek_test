@@ -11,7 +11,6 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.itamecodes.vivek.bottlerocket_vivek.R
 import kotlinx.android.synthetic.main.activity_main.*
-import com.itamecodes.vivek.bottlerocket_vivek.utils.ConnectionLiveData
 import com.itamecodes.vivek.bottlerocket_vivek.viewmodels.StoreViewModel
 
 
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         mViewModel = ViewModelProviders.of(this).get(StoreViewModel::class.java)
-        mViewModel.shouldShowSnackbar.observe(this, Observer {
+        mViewModel.shouldShowSnackbarNetworkConnection.observe(this, Observer {
             showSnackBar(container,getString(R.string.no_internet_connection),it)
         })
     }

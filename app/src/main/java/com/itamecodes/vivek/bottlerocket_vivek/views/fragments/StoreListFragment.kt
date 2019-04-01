@@ -3,7 +3,6 @@ package com.itamecodes.vivek.bottlerocket_vivek.views.fragments
 import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.itamecodes.vivek.bottlerocket_vivek.R
 import com.itamecodes.vivek.bottlerocket_vivek.adapters.StoreListAdapter
 import com.itamecodes.vivek.bottlerocket_vivek.databinding.StoreListBinding
 import com.itamecodes.vivek.bottlerocket_vivek.models.Store
 import com.itamecodes.vivek.bottlerocket_vivek.utils.Event
 import com.itamecodes.vivek.bottlerocket_vivek.viewmodels.StoreViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.store_list.*
 
 
@@ -67,7 +65,7 @@ class StoreListFragment: Fragment(){
 
         })
 
-        mViewModel.shouldShowSnackbar.observe(this, Observer {
+        mViewModel.shouldShowSnackbarNetworkConnection.observe(this, Observer {
             if(it && ((mViewModel.storeListLiveData.value?.isEmpty()?:true))) {
                 mViewModel.getData()
             }
@@ -87,7 +85,17 @@ class StoreListFragment: Fragment(){
             mViewModel.getData()
         }
 
+        mViewModel.errorServer.observe(this, Observer {
+            if(it){
+                showServerErrorSnackBar(storelist_container)
+            }
+        })
 
+
+    }
+
+    private fun showServerErrorSnackBar(view:View) {
+        Snackbar.make(view,getString(R.string.server_error), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun navigateToDetail(event:Event<Boolean>){

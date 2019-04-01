@@ -42,8 +42,12 @@ abstract class StoreDatabase : RoomDatabase() {
             }
         }
 
+
         private fun populateDatabase(storeDataDao: StoreDao) {
-            //storeDataDao.deleteAll()
+
+            //storeDataDao.deleteAll() <-- Uncomment this line for quick deletion of the db on launch. Wanted to delete it ,
+            // but this is can be considered as a demo for how to use room callbacks
+
         }
     }
 

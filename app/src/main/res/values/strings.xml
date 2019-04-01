@@ -2,4 +2,5 @@
     <string name="app_name">Bottlerocket-vivek</string>
     <string name="no_cached_data">No Cached Data</string>
     <string name="no_internet_connection">No Network Connection</string>
+    <string name="server_error">Server Error</string>
 </resources>
